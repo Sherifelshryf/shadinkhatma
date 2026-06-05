@@ -11,9 +11,11 @@
 <style>
 :root{--gd:#0a1e2e;--gm:#1a4c6e;--gl:#2d7a9a;--gb:#3da4c8;--go:#c9a84c;--gg:#e8c97a;--cr:#f5f0e8;--tl:#d4e0e8}
 *{margin:0;padding:0;box-sizing:border-box}
-html{overflow-x:hidden;width:100%}
+html{overflow-x:hidden;width:100%;scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{font-family:'Noto Naskh Arabic',serif;background:var(--gd);color:var(--cr);min-height:100vh;overflow-x:hidden;width:100%;max-width:100vw}
 body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(45,122,154,.15),transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.08),transparent 50%);pointer-events:none;z-index:0}
+input,select,button{font-size:16px!important;-webkit-appearance:none;appearance:none}
+button{-webkit-tap-highlight-color:transparent}
 .wrap{position:relative;z-index:1;overflow-x:hidden;max-width:100vw;width:100%}
 .sadaqa{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(45,122,154,.1));border-bottom:1px solid rgba(201,168,76,.3);text-align:center;padding:10px 16px;font-family:'Amiri',serif;font-size:.95rem;color:var(--gg);position:relative;z-index:1;word-break:break-word}
 .hero{text-align:center;padding:50px 16px 40px;overflow:hidden}
@@ -63,17 +65,26 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .fbtn:hover{background:linear-gradient(135deg,var(--gl),var(--gb));box-shadow:0 6px 25px rgba(45,122,154,.5);transform:translateY(-2px)}
 .fbtn:active{transform:scale(.97);transition:transform .1s}
 .klabel{font-family:'Amiri',serif;color:var(--go);text-align:center;margin-bottom:10px;font-size:1rem}
-.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:9px;margin-top:15px}
-.jcard{background:rgba(15,46,70,.5);border:1px solid rgba(201,168,76,.2);border-radius:11px;padding:11px 7px;text-align:center;transition:all .3s;cursor:pointer}
+
+/* ===== JUZ GRID — FIXED FOR MOBILE ===== */
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:9px;margin-top:15px;width:100%}
+.jcard{background:rgba(15,46,70,.5);border:1px solid rgba(201,168,76,.2);border-radius:11px;padding:11px 7px;text-align:center;transition:all .3s;cursor:pointer;overflow:hidden;min-width:0}
 .jcard:hover{border-color:rgba(201,168,76,.5);background:rgba(45,122,154,.2);transform:translateY(-2px)}
 .jcard:active{transform:scale(.95);transition:transform .1s}
-.jcard.done{background:linear-gradient(135deg,rgba(45,122,154,.4),rgba(61,164,200,.2));border-color:var(--gb);cursor:default}
-.jcard.done:active{transform:none}
+/* Assigned but not yet read */
+.jcard.taken{background:linear-gradient(135deg,rgba(45,122,154,.25),rgba(26,76,110,.3));border-color:rgba(61,164,200,.35);cursor:pointer}
+.jcard.taken .jnum{color:var(--gb)}
+.jcard.taken .jlbl{color:var(--gb)}
+.jcard.taken .jreader{display:block;color:var(--tl);font-size:.65rem;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+/* Completed */
+.jcard.done{background:linear-gradient(135deg,rgba(45,122,154,.4),rgba(61,164,200,.2));border-color:var(--gb);cursor:pointer}
 .jcard.done .jnum{color:var(--gb)}
 .jcard.done .jreader{display:block;color:var(--gg);font-size:.65rem;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jcard.done:active,.jcard.taken:active{transform:scale(.95)}
 .jnum{font-family:'Amiri',serif;font-size:1.05rem;color:var(--gg);display:block}
 .jlbl{font-size:.68rem;color:var(--tl)}
 .jreader{display:none}
+
 .overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:flex;align-items:flex-start;justify-content:center;padding:15px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s;overflow-x:hidden}
 .overlay.on{opacity:1;pointer-events:all}
 .mbox{background:#0f2e46;border:1px solid rgba(201,168,76,.4);border-radius:18px;padding:22px;max-width:800px;width:100%;margin:auto;position:relative}
@@ -91,8 +102,11 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 .mrinput{flex:1;min-width:0;width:100%;font-family:'Noto Naskh Arabic',serif;font-size:1rem;background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:11px 15px;color:var(--cr);outline:none}
 .mrinput:focus{border-color:var(--go)}
 .mrinput::placeholder{color:rgba(212,224,232,.4)}
-.mrbtn{flex:1;min-width:0;width:100%;font-family:'Amiri',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gm),var(--gl));border:1px solid var(--go);border-radius:11px;padding:11px;color:var(--gg);cursor:pointer;transition:all .3s}
+.mrbtn{flex:1;min-width:0;width:100%;font-family:'Amiri',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gm),var(--gl));border:1px solid var(--go);border-radius:11px;padding:11px;color:var(--gg);cursor:pointer;transition:all .3s;text-align:center}
 .mrbtn:hover{background:linear-gradient(135deg,var(--gl),var(--gb))}
+.mrbtn.finish{background:linear-gradient(135deg,#1a6e3a,#2d9a4e);border-color:#4cca6e}
+.mrbtn.finish:hover{background:linear-gradient(135deg,#2d9a4e,#3db85e)}
+.mrbtn.toggle{background:linear-gradient(135deg,#6e4c1a,#9a6e2d);border-color:var(--go)}
 .duas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px}
 .dcard{background:linear-gradient(135deg,rgba(15,46,70,.7),rgba(10,30,46,.8));border:1px solid rgba(201,168,76,.2);border-radius:13px;padding:18px;transition:transform .2s,box-shadow .2s}
 .dcard:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3);border-color:rgba(201,168,76,.4)}
@@ -126,15 +140,14 @@ body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellips
 ::-webkit-scrollbar{width:5px}
 ::-webkit-scrollbar-track{background:var(--gd)}
 ::-webkit-scrollbar-thumb{background:var(--gm);border-radius:3px}
-/* Mobile-first touch optimizations */
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-input,select,button{font-size:16px!important;-webkit-appearance:none;appearance:none}
-button{-webkit-tap-highlight-color:transparent}
+
 @supports(padding:env(safe-area-inset-bottom)){
   body{padding-bottom:env(safe-area-inset-bottom)}
   .tabs{padding-left:env(safe-area-inset-left);padding-right:env(safe-area-inset-right)}
   .toast{bottom:calc(28px + env(safe-area-inset-bottom))}
 }
+
+/* ===== MOBILE ===== */
 @media(max-width:600px){
   .sadaqa{font-size:.82rem!important;padding:10px 14px;line-height:1.6}
   .hero{padding:30px 16px 25px}
@@ -146,26 +159,29 @@ button{-webkit-tap-highlight-color:transparent}
   .tabs{gap:6px;padding:10px 8px;overflow-x:auto;flex-wrap:nowrap;justify-content:flex-start;-webkit-overflow-scrolling:touch;scrollbar-width:none;-ms-overflow-style:none}
   .tabs::-webkit-scrollbar{display:none}
   .tb{flex-shrink:0;padding:9px 16px;font-size:.82rem!important;white-space:nowrap}
-  .tab{padding:16px 12px}
+  .tab{padding:16px 10px}
   .sec-title{font-size:1.3rem!important;margin-bottom:6px}
   .sec-sub{font-size:.85rem;margin-bottom:14px}
   .kbox{padding:14px;border-radius:12px}
   .kbox-title{font-size:.95rem!important}
   .krow{flex-direction:column}
-  .kinput{min-width:unset;padding:13px 15px;border-radius:12px}
+  .kinput{padding:13px 15px;border-radius:12px}
   .kbtn{padding:13px 18px;border-radius:12px;width:100%}
   .klist{gap:6px}
   .kpill{padding:8px 16px;font-size:.85rem!important}
   .reg-form{padding:14px;border-radius:12px}
   .frow{flex-direction:column;gap:8px}
-  .finput,.fsel{min-width:unset;padding:14px 15px;border-radius:12px;font-size:16px!important}
+  .finput,.fsel{padding:14px 15px;border-radius:12px}
   .fbtn{padding:15px;border-radius:12px;font-size:1.05rem!important}
-  .agrid{grid-template-columns:repeat(5,1fr);gap:6px}
-  .jcard{padding:10px 4px;border-radius:9px;min-height:62px;display:flex;flex-direction:column;align-items:center;justify-content:center}
-  .jnum{font-size:1rem!important}
-  .jlbl{font-size:.6rem}
-  .jcard.done .jreader{font-size:.55rem}
-  /* Modal full-screen on mobile */
+
+  /* KEY FIX: 6 compact columns that actually fit */
+  .agrid{grid-template-columns:repeat(6,1fr);gap:5px;margin-top:12px;padding:0}
+  .jcard{padding:8px 3px;border-radius:9px;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+  .jnum{font-size:.95rem!important}
+  .jlbl{font-size:.55rem;line-height:1.2;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:100%}
+  .jcard.taken .jreader,.jcard.done .jreader{font-size:.5rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+
+  /* Modal full-screen */
   .overlay{padding:0;align-items:stretch}
   .mbox{border-radius:0;min-height:100vh;min-height:100dvh;padding:16px;border:none;display:flex;flex-direction:column}
   .mhead{position:sticky;top:0;background:#0f2e46;z-index:10;padding:10px 0;margin-bottom:8px}
@@ -174,36 +190,31 @@ button{-webkit-tap-highlight-color:transparent}
   .msub{font-size:.8rem;margin-bottom:10px}
   .qtext{font-size:1.1rem!important;line-height:2.4;padding:14px;max-height:unset;flex:1;overflow-y:auto;border-radius:10px;-webkit-overflow-scrolling:touch}
   .mact{flex-direction:column;gap:8px;margin-top:12px;position:sticky;bottom:0;background:#0f2e46;padding:10px 0}
-  .mrinput{min-width:unset;padding:14px 15px;border-radius:12px}
-  .mrbtn{min-width:unset;padding:14px;border-radius:12px;font-size:1rem!important;text-align:center}
-  /* Duas */
+  .mrinput{padding:14px 15px;border-radius:12px}
+  .mrbtn{padding:14px;border-radius:12px;font-size:1rem!important}
   .duas-grid{grid-template-columns:1fr;gap:10px}
   .dcard{padding:14px;border-radius:11px}
   .dtxt{font-size:.98rem!important;line-height:1.8}
-  /* Tasbih */
   .tasbih-grid{grid-template-columns:1fr;gap:12px}
   .tcard{padding:18px 14px;border-radius:14px}
   .ttxt{font-size:1.15rem!important}
   .tbtn{width:66px;height:66px;font-size:2rem!important;border-width:3px}
   .tcnum{font-size:2.6rem}
   .treset{padding:7px 16px;font-size:.85rem!important}
-  /* Ajar */
   .ajar-grid{grid-template-columns:1fr;gap:10px}
   .acard{padding:14px}
-  /* Kdua */
   .kdua{padding:20px 16px;border-radius:14px;font-size:1rem!important;line-height:2}
-  /* Toast */
   .toast{font-size:.95rem!important;padding:12px 20px;border-radius:10px;max-width:92vw}
-  /* Footer */
   .footer{padding:25px 16px;font-size:.82rem}
   .footer .fn{font-size:.95rem!important}
   .db-bar{font-size:.75rem;padding:6px 12px}
 }
-/* Small phones (SE, mini) */
 @media(max-width:375px){
   .agrid{grid-template-columns:repeat(5,1fr);gap:4px}
-  .jcard{padding:8px 3px;min-height:56px}
-  .jnum{font-size:.9rem!important}
+  .jcard{padding:6px 2px}
+  .jnum{font-size:.85rem!important}
+  .jlbl{font-size:.5rem}
+  .jcard.taken .jreader,.jcard.done .jreader{font-size:.45rem}
   .name{font-size:1.6rem!important}
   .tabs{gap:5px;padding:8px 6px}
   .tb{padding:8px 12px;font-size:.78rem!important}
@@ -243,7 +254,6 @@ button{-webkit-tap-highlight-color:transparent}
     <button class="tb" data-tab="ajar">⭐ أعمال بأجر عظيم</button>
   </div>
 
-  <!-- QURAN TAB -->
   <div id="tab-quran" class="tab on">
     <div class="sec-title">📖 ختمة القرآن الكريم</div>
     <div class="sec-sub">اضغط على أي جزء لتقرأه — كل حرف دعوة شفاء بإذن الله</div>
@@ -267,28 +277,24 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="agrid" id="ajzaaGrid"></div>
   </div>
 
-  <!-- TASBIH TAB -->
   <div id="tab-tasbih" class="tab">
     <div class="sec-title">📿 تسبيح وذكر</div>
     <div class="sec-sub" id="tasbihSub">كل تسبيحة دعوة شفاء لـشادن شريف</div>
     <div class="tasbih-grid" id="tasbihGrid"></div>
   </div>
 
-  <!-- DUAS TAB -->
   <div id="tab-duas" class="tab">
     <div class="sec-title">🤲 أدعية الشفاء</div>
     <div class="sec-sub" id="duasSub">اللهم اشفِ شادن شريف وعافه</div>
     <div class="duas-grid" id="duasGrid"></div>
   </div>
 
-  <!-- KDUA TAB -->
   <div id="tab-kdua" class="tab">
     <div class="sec-title">🌿 دعاء ختم القرآن الكريم</div>
     <div class="sec-sub" id="kduaSub">لشفاء شادن شريف حفظه الله</div>
     <div class="kdua" id="kduaBox"></div>
   </div>
 
-  <!-- AJAR TAB -->
   <div id="tab-ajar" class="tab">
     <div class="sec-title">⭐ أعمال بأجر عظيم</div>
     <div class="sec-sub" id="ajarSub">أهدِ ثوابها لشفاء شادن شريف</div>
@@ -301,7 +307,6 @@ button{-webkit-tap-highlight-color:transparent}
   </div>
 </div>
 
-<!-- READ MODAL -->
 <div class="overlay" id="overlay">
   <div class="mbox">
     <div class="mhead">
@@ -312,7 +317,9 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="qtext" id="qtext"><div class="qloading">جاري التحميل... 📖</div></div>
     <div class="mact">
       <input class="mrinput" id="mreaderName" placeholder="اسمك الكريم...">
-      <button class="mrbtn" id="mregBtn">📖 سأقرأ هذا الجزء</button><button class="mrbtn" id="finishBtn">✅ أنهيت قراءة الجزء</button><button class="mrbtn" id="toggleBtn">🔄 تبديل الحالة</button>
+      <button class="mrbtn" id="mregBtn">📖 سأقرأ هذا الجزء</button>
+      <button class="mrbtn finish" id="finishBtn">✅ أنهيت قراءة الجزء</button>
+      <button class="mrbtn toggle" id="toggleBtn">🔄 تبديل الحالة</button>
     </div>
   </div>
 </div>
@@ -320,7 +327,6 @@ button{-webkit-tap-highlight-color:transparent}
 <div class="toast" id="toast"></div>
 
 <script>
-// ===== SUPABASE CONFIG =====
 var SB_URL='https://qlnhbffhkoabanyoynlb.supabase.co';
 var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbmhiZmZoa29hYmFueW95bmxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NTY2MjgsImV4cCI6MjA5MTIzMjYyOH0.1M58H1nVm3wcG7Dxpd7mlJq9SosZvMDB7YGWKPFxl44';
 
@@ -330,7 +336,6 @@ function sb(path,opts){
   },opts||{}));
 }
 
-// ===== STATIC DATA =====
 var AJZAA=["الفاتحة والبقرة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال والتوبة","يونس وهود","يوسف والرعد","إبراهيم والحجر","النحل","الإسراء والكهف","الكهف ومريم","طه والأنبياء","الحج والمؤمنون","النور والفرقان","الشعراء والنمل","النمل والقصص والعنكبوت","الروم ولقمان والسجدة","الأحزاب وسبأ وفاطر","يس والصافات","الزمر وغافر","فصلت والشورى","الزخرف والدخان والجاثية","الأحقاف ومحمد والفتح","الحجرات والذاريات","الطور والنجم والمرسلات","الملك والقيامة والنبأ","عبس والشمس والناس"];
 
 var TASBIH=[
@@ -365,16 +370,14 @@ var AJAR=[
   {a:"أداء ركعتين حاجة لشفاء المريض",r:"ما من عبد يدعو الله بدعوة إلا آتاه الله إياها"}
 ];
 
-// ===== STATE =====
 var DEFAULT_NAME='شادن شريف';
 var currentK=null;
-var assignments={}; // {juz_number: {reader_name, completed}}
+var assignments={};
 var tcounts=TASBIH.map(function(){return 0;});
 try{var _ts=localStorage.getItem('khatma_shifa_tasbih');if(_ts)tcounts=JSON.parse(_ts);}catch(e){}
 var currentJuz=null;
 var allKhatmas=[];
 
-// ===== TOAST =====
 var toastT;
 function toast(msg){
   var el=document.getElementById('toast');
@@ -382,14 +385,12 @@ function toast(msg){
   clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('on');},3500);
 }
 
-// ===== DB STATUS =====
 function setDbStatus(type,msg){
   var bar=document.getElementById('dbStatus');
   bar.className='db-bar '+type;
   document.getElementById('dbMsg').textContent=msg;
 }
 
-// ===== TABS =====
 document.getElementById('tabsNav').addEventListener('click',function(e){
   var btn=e.target;if(!btn.classList.contains('tb'))return;
   var id=btn.getAttribute('data-tab');
@@ -399,9 +400,9 @@ document.getElementById('tabsNav').addEventListener('click',function(e){
   var el=document.getElementById('tab-'+id);if(el)el.classList.add('on');
 });
 
-// ===== PROGRESS =====
 function updateProgress(){
   var done=Object.values(assignments).filter(function(x){return x&&x.completed;}).length;
+  var total=Object.keys(assignments).length;
   var pct=Math.round(done/30*100);
   document.getElementById('progFill').style.width=pct+'%';
   document.getElementById('doneCount').textContent=done;
@@ -409,13 +410,12 @@ function updateProgress(){
   document.getElementById('pctCount').textContent=pct;
 }
 
-// ===== SUPABASE HELPERS =====
 async function loadKhatmas(){
   try{
     var r=await sb('shifa_khatmas?select=id,name,created_at&order=created_at.asc');
     if(!r.ok)throw new Error('HTTP '+r.status);
     var data=await r.json();
-    setDbStatus('ok','✅ متصل بقاعدة البيانات — البيانات مشتركة بين جميع الزوار');
+    setDbStatus('ok','✅ متصل — البيانات مشتركة بين جميع الزوار');
     return data;
   }catch(e){
     setDbStatus('err','❌ خطأ في الاتصال: '+e.message);
@@ -452,7 +452,6 @@ async function markCompleted(khatmaId,juzNum){
   return await r.json();
 }
 
-// ===== KHATMA UI =====
 async function refreshKhatmaList(){
   allKhatmas=await loadKhatmas();
   var list=document.getElementById('khatmaList');
@@ -508,7 +507,6 @@ document.getElementById('createBtn').addEventListener('click',async function(){
   }
 });
 
-// ===== REGISTER JUZ =====
 document.getElementById('regBtn').addEventListener('click',async function(){
   var name=document.getElementById('readerName').value.trim();
   var juz=parseInt(document.getElementById('juzSel').value);
@@ -528,7 +526,6 @@ document.getElementById('regBtn').addEventListener('click',async function(){
   }
 });
 
-// ===== AJZAA =====
 function renderJuzSelect(){
   var sel=document.getElementById('juzSel');
   sel.innerHTML='<option value="">اختر الجزء...</option>';
@@ -546,12 +543,21 @@ function renderAjzaa(){
   var grid=document.getElementById('ajzaaGrid');
   grid.innerHTML='';
   AJZAA.forEach(function(name,i){
-    var num=i+1;var done=!!assignments[num];
+    var num=i+1;
+    var a=assignments[num];
     var card=document.createElement('div');
-    card.className='jcard'+(done?' done':'');
-    card.innerHTML='<span class="jnum">'+num+'</span>'+
-      '<span class="jlbl">'+(done?(assignments[num].completed?'✅ تم':'📖 جاري القراءة'):'اضغط')+'</span>'+'<span class="jreader">'+(done?assignments[num].reader:'')+'</span>';
-    if(!done)card.setAttribute('data-juz',num);
+
+    if(a&&a.completed){
+      card.className='jcard done';
+      card.innerHTML='<span class="jnum">'+num+'</span><span class="jlbl">✅ تم</span><span class="jreader">'+a.reader+'</span>';
+    }else if(a){
+      card.className='jcard taken';
+      card.innerHTML='<span class="jnum">'+num+'</span><span class="jlbl">📖 جاري</span><span class="jreader">'+a.reader+'</span>';
+    }else{
+      card.className='jcard';
+      card.innerHTML='<span class="jnum">'+num+'</span><span class="jlbl">اضغط</span>';
+    }
+    card.setAttribute('data-juz',num);
     grid.appendChild(card);
   });
 }
@@ -559,20 +565,39 @@ function renderAjzaa(){
 document.getElementById('ajzaaGrid').addEventListener('click',function(e){
   var card=e.target.closest('.jcard');
   if(!card)return;
-  var juz=parseInt(card.getAttribute('data-juz') || card.querySelector('.jnum').textContent);
+  var juz=parseInt(card.getAttribute('data-juz'));
   if(juz)openModal(juz);
 });
 
-// ===== MODAL =====
 function openModal(num){
   currentJuz=num;
+  var a=assignments[num];
   document.getElementById('mtitle').textContent='الجزء '+num+' — '+AJZAA[num-1];
   document.getElementById('msub').textContent='اقرأ الجزء ثم سجّل قراءتك — ثوابك دعوة شفاء لـ'+(currentK?currentK.name:'');
   document.getElementById('qtext').innerHTML='<div class="qloading">جاري تحميل الجزء '+num+'... 📖</div>';
+
+  // Show/hide buttons based on state
+  var regBtn=document.getElementById('mregBtn');
+  var finBtn=document.getElementById('finishBtn');
+  var togBtn=document.getElementById('toggleBtn');
+  var nameInput=document.getElementById('mreaderName');
+
+  if(!a){
+    // Unassigned — show register
+    regBtn.style.display='';finBtn.style.display='none';togBtn.style.display='none';nameInput.style.display='';
+  }else if(!a.completed){
+    // Assigned, not read — show finish
+    regBtn.style.display='none';finBtn.style.display='';togBtn.style.display='none';nameInput.style.display='none';
+  }else{
+    // Completed — show toggle to undo
+    regBtn.style.display='none';finBtn.style.display='none';togBtn.style.display='';nameInput.style.display='none';
+  }
+
   document.getElementById('overlay').classList.add('on');
   document.body.style.overflow='hidden';
   loadJuz(num);
 }
+
 function closeModal(){
   document.getElementById('overlay').classList.remove('on');
   document.body.style.overflow='';
@@ -597,7 +622,6 @@ document.getElementById('mregBtn').addEventListener('click',async function(){
   }
 });
 
-
 document.getElementById('finishBtn').addEventListener('click',async function(){
   if(!currentJuz||!currentK)return;
   if(!assignments[currentJuz]){toast('يجب تسجيل الجزء أولاً');return;}
@@ -605,41 +629,25 @@ document.getElementById('finishBtn').addEventListener('click',async function(){
     await markCompleted(currentK.id,currentJuz);
     assignments[currentJuz].completed=true;
     renderAjzaa();updateProgress();
-    toast('تم تسجيل إتمام القراءة 🤲');
+    toast('✅ تم تسجيل إتمام القراءة — جزاك الله خيراً 🤲');
     closeModal();
-  }catch(e){
-    toast('خطأ: '+e.message);
-  }
+  }catch(e){toast('خطأ: '+e.message);}
 });
 
 document.getElementById('toggleBtn').addEventListener('click',async function(){
   if(!currentJuz||!currentK)return;
-  if(!assignments[currentJuz]){toast('يجب تسجيل الجزء أولاً');return;}
-
+  if(!assignments[currentJuz])return;
   try{
-    var newStatus = !assignments[currentJuz].completed;
-
-    var r = await sb(
-      'shifa_juz_assignments?khatma_id=eq.'+currentK.id+'&juz_number=eq.'+currentJuz,
-      {method:'PATCH',body:JSON.stringify({completed:newStatus})}
-    );
-
-    if(!r.ok) throw new Error('HTTP '+r.status);
-
-    assignments[currentJuz].completed = newStatus;
-
-    renderAjzaa();
-    updateProgress();
-
-    toast(newStatus ? '✅ تم وضع الجزء كمقروء' : '📖 تم وضع الجزء كقيد القراءة');
-
+    var newStatus=!assignments[currentJuz].completed;
+    var r=await sb('shifa_juz_assignments?khatma_id=eq.'+currentK.id+'&juz_number=eq.'+currentJuz,{method:'PATCH',body:JSON.stringify({completed:newStatus})});
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    assignments[currentJuz].completed=newStatus;
+    renderAjzaa();updateProgress();
+    toast(newStatus?'✅ تم وضع الجزء كمقروء':'📖 تم وضع الجزء كقيد القراءة');
     closeModal();
-  }catch(e){
-    toast('خطأ: '+e.message);
-  }
+  }catch(e){toast('خطأ: '+e.message);}
 });
 
-// ===== QURAN LOADER =====
 async function loadJuz(num){
   var el=document.getElementById('qtext');
   var apis=['https://api.alquran.cloud/v1/juz/'+num+'/quran-uthmani','https://api.alquran.cloud/v1/juz/'+num+'/quran-simple'];
@@ -665,23 +673,14 @@ async function loadJuz(num){
       el.innerHTML=html;return;
     }catch(e){continue;}
   }
-  el.innerHTML='<div style="text-align:center;padding:35px">'+
-    '<div style="font-size:2rem;margin-bottom:14px">📶</div>'+
-    '<p style="font-family:Amiri,serif;font-size:1.15rem;color:#c9a84c;margin-bottom:12px">تعذّر تحميل الجزء '+num+'</p>'+
-    '<p style="color:#d4e0e8;margin-bottom:18px;font-size:.93rem">تأكد من اتصالك بالإنترنت ثم اضغط إعادة المحاولة</p>'+
-    '<button onclick="loadJuz('+num+')" style="background:linear-gradient(135deg,#1a4c6e,#2d7a9a);border:1px solid #c9a84c;border-radius:10px;padding:11px 22px;color:#e8c97a;font-family:Amiri,serif;font-size:1.05rem;cursor:pointer">↺ إعادة المحاولة</button>'+
-    '</div>';
+  el.innerHTML='<div style="text-align:center;padding:35px"><div style="font-size:2rem;margin-bottom:14px">📶</div><p style="font-family:Amiri,serif;font-size:1.15rem;color:#c9a84c;margin-bottom:12px">تعذّر تحميل الجزء '+num+'</p><p style="color:#d4e0e8;margin-bottom:18px;font-size:.93rem">تأكد من اتصالك بالإنترنت ثم اضغط إعادة المحاولة</p><button onclick="loadJuz('+num+')" style="background:linear-gradient(135deg,#1a4c6e,#2d7a9a);border:1px solid #c9a84c;border-radius:10px;padding:11px 22px;color:#e8c97a;font-family:Amiri,serif;font-size:1.05rem;cursor:pointer">↺ إعادة المحاولة</button></div>';
 }
 
-// ===== TASBIH =====
 function renderTasbih(){
   var grid=document.getElementById('tasbihGrid');grid.innerHTML='';
   TASBIH.forEach(function(item,i){
     var card=document.createElement('div');card.className='tcard';
-    card.innerHTML='<div class="ttxt" style="color:'+item.c+'">'+item.t+'</div>'+
-      '<div class="tcwrap"><button class="tbtn" data-i="'+i+'">+</button>'+
-      '<div class="tcnum" id="tc'+i+'">'+tcounts[i]+'</div></div>'+
-      '<button class="treset" data-i="'+i+'">إعادة</button>';
+    card.innerHTML='<div class="ttxt" style="color:'+item.c+'">'+item.t+'</div><div class="tcwrap"><button class="tbtn" data-i="'+i+'">+</button><div class="tcnum" id="tc'+i+'">'+tcounts[i]+'</div></div><button class="treset" data-i="'+i+'">إعادة</button>';
     grid.appendChild(card);
   });
 }
@@ -692,81 +691,25 @@ document.getElementById('tasbihGrid').addEventListener('click',function(e){
   try{localStorage.setItem('khatma_shifa_tasbih',JSON.stringify(tcounts));}catch(e){}
 });
 
-// ===== DUAS =====
 function getDuas(name){
   var n=currentK?currentK.name:DEFAULT_NAME;
-  return [
-    "اللهم اشفِ "+n+" شفاءً لا يُغادر سقماً",
-    "اللهم ربّ الناس أذهب البأس عن "+n+" اشفِ أنت الشافي لا شفاء إلا شفاؤك",
-    "اللهم عافِ "+n+" في بدنه وعافِه في سمعه وعافِه في بصره",
-    "أسأل الله العظيم ربّ العرش العظيم أن يشفي "+n,
-    "اللهم اشفِ "+n+" واشفِ مرضى المسلمين أجمعين",
-    "اللهم ألبس "+n+" لباس الصحة والعافية",
-    "اللهم اشفِ "+n+" من كل داء وردّه إلى أهله سالماً معافى",
-    "اللهم خذ بيد "+n+" واجعل هذا المرض كفّارةً وطهوراً له",
-    "اللهم أنزل على "+n+" الشفاء من عندك وأذهب عنه الألم",
-    "اللهم ارحم ضعف "+n+" وقوّه وعافِه",
-    "بسم الله أرقي "+n+" من كل شيء يؤذيه من شر كل نفس أو عين حاسد الله يشفيه",
-    "اللهم اجعل ما أصاب "+n+" تكفيراً لذنوبه ورفعةً في درجاته",
-    "اللهم ردّ "+n+" إلى الصحة والعافية رداً جميلاً",
-    "اللهم أنت الشافي المعافي فاشفِ "+n+" شفاءً تاماً عاجلاً",
-    "اللهم امسح على "+n+" بيمينك الشافية وأذهب عنه الداء",
-    "اللهم لا تجعل "+n+" يعاني وأسرع له بالشفاء يا أرحم الراحمين",
-    "اللهم قوِّ جسد "+n+" وطهّره من كل سوء وبأس",
-    "اللهم اكتب لـ"+n+" الشفاء العاجل واجبره جبراً يليق بكرمك",
-    "اللهم اجعل كل لحظة ألم يمر بها "+n+" في ميزان حسناته",
-    "اللهم اشرح صدر "+n+" وطمئن قلبه وأرِح باله",
-    "اللهم أخرج "+n+" من المستشفى سالماً معافى بإذنك",
-    "اللهم اجعل "+n+" من الذين تبدّل أمراضهم صحة وعافية",
-    "اللهم هوّن على "+n+" ما يعانيه واجعل له في كل لحظة فرجاً",
-    "اللهم بكل اسم هو لك اشفِ "+n+" وعافِه",
-    "اللهم أنت الذي تحيي وتميت فاكتب لـ"+n+" الحياة بصحة وعافية",
-    "اللهم اجعل شفاء "+n+" قريباً عاجلاً غير آجل",
-    "اللهم ارفع عن "+n+" البلاء والوباء والداء",
-    "اللهم أحطّ "+n+" بحفظك ورعايتك وعنايتك",
-    "اللهم ردّ "+n+" إلينا وهو في أحسن حال وأتم عافية",
-    "اللهم اجعل دعاءنا هذا سبباً في شفاء "+n+" يا سميع الدعاء",
-    "اللهم طهّر جسد "+n+" من كل مرض وسقم",
-    "اللهم أنزل السكينة على قلب "+n+" وطمئنه بشفائك",
-    "اللهم اجعل أيام "+n+" القادمة أيام عافية وصحة وفرح",
-    "اللهم لا تكِل "+n+" إلى أحد سواك فأنت حسبه ونعم الوكيل",
-    "اللهم ثبّت "+n+" وارزقه الصبر الجميل وعجّل له الشفاء",
-    "اللهم اجعل كل من قرأ ودعا في هذه الصفحة في ميزان حسناته",
-    "اللهم تقبّل منا ختمة القرآن واجعلها سبب شفاء "+n,
-    "اللهم اشفِ "+n+" واشفنا واشفِ مرضى المسلمين جميعاً",
-    "اللهم بشّر "+n+" بالعافية كما بشّرت أيوب عليه السلام",
-    "آمين آمين آمين يا ربّ العالمين"
-  ];
+  return ["اللهم اشفِ "+n+" شفاءً لا يُغادر سقماً","اللهم ربّ الناس أذهب البأس عن "+n+" اشفِ أنت الشافي لا شفاء إلا شفاؤك","اللهم عافِ "+n+" في بدنه وعافِه في سمعه وعافِه في بصره","أسأل الله العظيم ربّ العرش العظيم أن يشفي "+n,"اللهم اشفِ "+n+" واشفِ مرضى المسلمين أجمعين","اللهم ألبس "+n+" لباس الصحة والعافية","اللهم اشفِ "+n+" من كل داء وردّه إلى أهله سالماً معافى","اللهم خذ بيد "+n+" واجعل هذا المرض كفّارةً وطهوراً له","اللهم أنزل على "+n+" الشفاء من عندك وأذهب عنه الألم","اللهم ارحم ضعف "+n+" وقوّه وعافِه","بسم الله أرقي "+n+" من كل شيء يؤذيه من شر كل نفس أو عين حاسد الله يشفيه","اللهم اجعل ما أصاب "+n+" تكفيراً لذنوبه ورفعةً في درجاته","اللهم ردّ "+n+" إلى الصحة والعافية رداً جميلاً","اللهم أنت الشافي المعافي فاشفِ "+n+" شفاءً تاماً عاجلاً","اللهم امسح على "+n+" بيمينك الشافية وأذهب عنه الداء","اللهم لا تجعل "+n+" يعاني وأسرع له بالشفاء يا أرحم الراحمين","اللهم قوِّ جسد "+n+" وطهّره من كل سوء وبأس","اللهم اكتب لـ"+n+" الشفاء العاجل واجبره جبراً يليق بكرمك","اللهم اجعل كل لحظة ألم يمر بها "+n+" في ميزان حسناته","اللهم اشرح صدر "+n+" وطمئن قلبه وأرِح باله","اللهم أخرج "+n+" من المستشفى سالماً معافى بإذنك","اللهم اجعل "+n+" من الذين تبدّل أمراضهم صحة وعافية","اللهم هوّن على "+n+" ما يعانيه واجعل له في كل لحظة فرجاً","اللهم بكل اسم هو لك اشفِ "+n+" وعافِه","اللهم أنت الذي تحيي وتميت فاكتب لـ"+n+" الحياة بصحة وعافية","اللهم اجعل شفاء "+n+" قريباً عاجلاً غير آجل","اللهم ارفع عن "+n+" البلاء والوباء والداء","اللهم أحطّ "+n+" بحفظك ورعايتك وعنايتك","اللهم ردّ "+n+" إلينا وهو في أحسن حال وأتم عافية","اللهم اجعل دعاءنا هذا سبباً في شفاء "+n+" يا سميع الدعاء","اللهم طهّر جسد "+n+" من كل مرض وسقم","اللهم أنزل السكينة على قلب "+n+" وطمئنه بشفائك","اللهم اجعل أيام "+n+" القادمة أيام عافية وصحة وفرح","اللهم لا تكِل "+n+" إلى أحد سواك فأنت حسبه ونعم الوكيل","اللهم ثبّت "+n+" وارزقه الصبر الجميل وعجّل له الشفاء","اللهم اجعل كل من قرأ ودعا في هذه الصفحة في ميزان حسناته","اللهم تقبّل منا ختمة القرآن واجعلها سبب شفاء "+n,"اللهم اشفِ "+n+" واشفنا واشفِ مرضى المسلمين جميعاً","اللهم بشّر "+n+" بالعافية كما بشّرت أيوب عليه السلام","آمين آمين آمين يا ربّ العالمين"];
 }
 
 function renderDuas(){
   var grid=document.getElementById('duasGrid');grid.innerHTML='';
-  getDuas(currentK?currentK.name:'المريض').forEach(function(dua,i){
+  getDuas().forEach(function(dua,i){
     var card=document.createElement('div');card.className='dcard';
     card.innerHTML='<div class="dnum">دعاء '+(i+1)+'</div><div class="dtxt">'+dua+'</div>';
     grid.appendChild(card);
   });
 }
 
-// ===== KDUA =====
 function getKDua(name){
   var n=name||'المريض';
-  return '<p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>'+
-    '<p>اللَّهُمَّ إِنَّنَا أَتَمَمْنَا تِلاوَةَ كِتَابِكَ الْكَرِيمِ<br>وَنَسْأَلُكَ أَنْ تَجْعَلَ ثَوَابَ هَذِهِ الْخَتْمَةِ الْمُبَارَكَةِ<br>سَبَبًا فِي شِفَاءِ <span class="hl">'+n+'</span> حَفِظَهُ اللَّهُ</p>'+
-    '<p>اللَّهُمَّ اقْبَلْ مِنَّا هَذِهِ الْخَتْمَةَ<br>وَاجْعَلْهَا نُوراً وَشِفَاءً وَرَحْمَةً لِـ<span class="hl">'+n+'</span></p>'+
-    '<p>اللَّهُمَّ بِحُرْمَةِ الْقُرْآنِ الْعَظِيمِ<br>اشْفِ <span class="hl">'+n+'</span> شِفَاءً لَا يُغَادِرُ سَقَمًا<br>وَعَافِهِ مُعَافَاةً لَا تُبْقِي دَاءً</p>'+
-    '<p>اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ<br>اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ<br>شِفَاءً لَا يُغَادِرُ سَقَمًا</p>'+
-    '<p>اللَّهُمَّ أَلْبِسْ <span class="hl">'+n+'</span> لِبَاسَ الصِّحَّةِ وَالْعَافِيَةِ<br>وَرُدَّهُ إِلَى أَهْلِهِ سَالِمًا مُعَافًى</p>'+
-    '<p>اللَّهُمَّ اجْعَلْ مَا أَصَابَ <span class="hl">'+n+'</span><br>تَكْفِيرًا لِذُنُوبِهِ وَرَفْعَةً فِي دَرَجَاتِهِ</p>'+
-    '<p>اللَّهُمَّ بَشِّرْهُ بِالْعَافِيَةِ<br>كَمَا بَشَّرْتَ أَيُّوبَ عَلَيْهِ السَّلَامُ بِالشِّفَاءِ</p>'+
-    '<p>اللَّهُمَّ أَخْرِجْ <span class="hl">'+n+'</span> مِنَ الْمُسْتَشْفَى<br>وَهُوَ فِي أَتَمِّ صِحَّةٍ وَأَحْسَنِ حَالٍ</p>'+
-    '<p>اللَّهُمَّ اجْعَلْ أَيَّامَهُ الْقَادِمَةَ<br>أَيَّامَ فَرَحٍ وَصِحَّةٍ وَعَافِيَةٍ</p>'+
-    '<p>اللَّهُمَّ تَقَبَّلْ مِنَّا هَذَا الْعَمَلَ<br>وَاجْعَلْهُ فِي مِيزَانِ حَسَنَاتِنَا وَحَسَنَاتِ <span class="hl">'+n+'</span></p>'+
-    '<p><span class="hl">آمِينَ... آمِينَ... آمِينَ يَا رَبَّ الْعَالَمِينَ</span></p>'+
-    '<p>وَصَلَّى اللَّهُمَّ وَسَلَّمَ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ</p>';
+  return '<p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p><p>اللَّهُمَّ إِنَّنَا أَتَمَمْنَا تِلاوَةَ كِتَابِكَ الْكَرِيمِ<br>وَنَسْأَلُكَ أَنْ تَجْعَلَ ثَوَابَ هَذِهِ الْخَتْمَةِ الْمُبَارَكَةِ<br>سَبَبًا فِي شِفَاءِ <span class="hl">'+n+'</span> حَفِظَهُ اللَّهُ</p><p>اللَّهُمَّ اقْبَلْ مِنَّا هَذِهِ الْخَتْمَةَ<br>وَاجْعَلْهَا نُوراً وَشِفَاءً وَرَحْمَةً لِـ<span class="hl">'+n+'</span></p><p>اللَّهُمَّ بِحُرْمَةِ الْقُرْآنِ الْعَظِيمِ<br>اشْفِ <span class="hl">'+n+'</span> شِفَاءً لَا يُغَادِرُ سَقَمًا<br>وَعَافِهِ مُعَافَاةً لَا تُبْقِي دَاءً</p><p>اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ<br>اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ<br>شِفَاءً لَا يُغَادِرُ سَقَمًا</p><p>اللَّهُمَّ أَلْبِسْ <span class="hl">'+n+'</span> لِبَاسَ الصِّحَّةِ وَالْعَافِيَةِ<br>وَرُدَّهُ إِلَى أَهْلِهِ سَالِمًا مُعَافًى</p><p>اللَّهُمَّ اجْعَلْ مَا أَصَابَ <span class="hl">'+n+'</span><br>تَكْفِيرًا لِذُنُوبِهِ وَرَفْعَةً فِي دَرَجَاتِهِ</p><p>اللَّهُمَّ بَشِّرْهُ بِالْعَافِيَةِ<br>كَمَا بَشَّرْتَ أَيُّوبَ عَلَيْهِ السَّلَامُ بِالشِّفَاءِ</p><p>اللَّهُمَّ أَخْرِجْ <span class="hl">'+n+'</span> مِنَ الْمُسْتَشْفَى<br>وَهُوَ فِي أَتَمِّ صِحَّةٍ وَأَحْسَنِ حَالٍ</p><p>اللَّهُمَّ اجْعَلْ أَيَّامَهُ الْقَادِمَةَ<br>أَيَّامَ فَرَحٍ وَصِحَّةٍ وَعَافِيَةٍ</p><p>اللَّهُمَّ تَقَبَّلْ مِنَّا هَذَا الْعَمَلَ<br>وَاجْعَلْهُ فِي مِيزَانِ حَسَنَاتِنَا وَحَسَنَاتِ <span class="hl">'+n+'</span></p><p><span class="hl">آمِينَ... آمِينَ... آمِينَ يَا رَبَّ الْعَالَمِينَ</span></p><p>وَصَلَّى اللَّهُمَّ وَسَلَّمَ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ</p>';
 }
 
-// ===== AJAR =====
 function renderAjar(){
   var grid=document.getElementById('ajarGrid');grid.innerHTML='';
   AJAR.forEach(function(item){
@@ -776,7 +719,6 @@ function renderAjar(){
   });
 }
 
-// ===== UPDATE DYNAMIC NAME UI =====
 function updateNameUI(){
   var n=currentK?currentK.name:DEFAULT_NAME;
   document.getElementById('heroName').textContent=n;
@@ -788,18 +730,10 @@ function updateNameUI(){
   renderDuas();
 }
 
-// ===== INIT =====
-renderTasbih();
-renderAjar();
-renderAjzaa();
-renderJuzSelect();
-updateNameUI();
+renderTasbih();renderAjar();renderAjzaa();renderJuzSelect();updateNameUI();
 document.getElementById('klabel').textContent='✦ ختمة شفاء لـ: '+DEFAULT_NAME+' ✦';
 document.getElementById('regForm').style.display='block';
-
-(async function(){
-  await refreshKhatmaList();
-})();
+(async function(){await refreshKhatmaList();})();
 </script>
 </body>
 </html>
