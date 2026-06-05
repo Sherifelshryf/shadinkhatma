@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ختمة شفاء — شادن شريف</title>
+<link href="https://fonts.googleapis.com/css2?family=Amiri:wght@400;700&family=Noto+Naskh+Arabic:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--gd:#0a1e2e;--gm:#1a4c6e;--gl:#2d7a9a;--gb:#3da4c8;--go:#c9a84c;--gg:#e8c97a;--cr:#f5f0e8;--tl:#d4e0e8}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Noto Naskh Arabic',serif;background:var(--gd);color:var(--cr);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background:radial-gradient(ellipse at 20% 20%,rgba(45,122,154,.15),transparent 50%),radial-gradient(ellipse at 80% 80%,rgba(201,168,76,.08),transparent 50%);pointer-events:none;z-index:0}
+.wrap{position:relative;z-index:1}
+.sadaqa{background:linear-gradient(135deg,rgba(201,168,76,.15),rgba(45,122,154,.1));border-bottom:1px solid rgba(201,168,76,.3);text-align:center;padding:10px 20px;font-family:'Amiri',serif;font-size:.95rem;color:var(--gg);position:relative;z-index:1}
+.hero{text-align:center;padding:50px 20px 40px}
+.bismillah{font-family:'Amiri',serif;font-size:clamp(1.8rem,4vw,2.8rem);color:var(--go);margin-bottom:25px;text-shadow:0 0 30px rgba(201,168,76,.4);animation:fd 1.2s ease both .3s;opacity:0}
+.divider{color:var(--go);font-size:1.4rem;letter-spacing:8px;margin:12px 0;animation:fd 1s ease both .6s;opacity:0}
+.mem-txt{font-size:clamp(.9rem,2vw,1.1rem);color:var(--tl);animation:fd 1s ease both .7s;opacity:0;margin-bottom:6px}
+.name{font-family:'Amiri',serif;font-size:clamp(2rem,6vw,4rem);color:var(--gg);font-weight:700;text-shadow:0 0 40px rgba(201,168,76,.5);animation:fd 1.2s ease both .9s;opacity:0;line-height:1.3;margin:10px 0}
+.rahma{font-family:'Amiri',serif;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--gb);animation:fd 1s ease both 1.1s;opacity:0;margin-bottom:20px}
+.quote{font-family:'Amiri',serif;font-size:clamp(1.3rem,3.5vw,2rem);color:var(--gg);font-style:italic;max-width:700px;margin:20px auto;line-height:1.8;animation:fu 1.2s ease both 1.4s;opacity:0;padding:22px 28px;border-right:4px solid var(--go);border-left:4px solid var(--go);background:rgba(201,168,76,.05);border-radius:8px}
+.prog-box{background:linear-gradient(135deg,rgba(15,46,70,.9),rgba(10,30,46,.95));border:1px solid rgba(201,168,76,.3);border-radius:20px;padding:25px;max-width:700px;margin:25px auto;animation:fu 1s ease both 1.6s;opacity:0;box-shadow:0 10px 40px rgba(0,0,0,.4)}
+.prog-title{font-family:'Amiri',serif;font-size:1.3rem;color:var(--go);margin-bottom:12px;text-align:center}
+.prog-track{background:rgba(0,0,0,.3);border-radius:50px;height:20px;overflow:hidden;margin-bottom:8px;border:1px solid rgba(201,168,76,.2)}
+.prog-fill{height:100%;background:linear-gradient(90deg,var(--gm),var(--gb),var(--go));border-radius:50px;transition:width 1s ease;width:0%}
+.prog-stats{display:flex;justify-content:space-between;color:var(--tl);font-size:.9rem}
+.prog-stats b{color:var(--gg)}
+.db-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:7px 18px;border-radius:50px;margin:0 auto 18px;width:fit-content;font-size:.82rem;border:1px solid;transition:all .4s}
+.db-bar.ok{background:rgba(45,122,154,.15);border-color:rgba(61,164,200,.4);color:var(--gb)}
+.db-bar.err{background:rgba(180,30,30,.15);border-color:rgba(220,50,50,.4);color:#f87171}
+.db-bar.load{background:rgba(201,168,76,.1);border-color:rgba(201,168,76,.3);color:var(--go)}
+.db-dot{width:8px;height:8px;border-radius:50%;background:currentColor;flex-shrink:0}
+.tabs{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;padding:15px;position:sticky;top:0;background:rgba(10,30,46,.97);backdrop-filter:blur(10px);z-index:100;border-bottom:1px solid rgba(201,168,76,.2)}
+.tb{font-family:'Noto Naskh Arabic',serif;font-size:.88rem;color:var(--tl);background:rgba(255,255,255,.05);border:1px solid rgba(201,168,76,.2);border-radius:50px;padding:7px 16px;cursor:pointer;transition:all .3s}
+.tb.on,.tb:hover{background:linear-gradient(135deg,var(--gm),var(--gl));border-color:var(--go);color:#fff;box-shadow:0 4px 15px rgba(45,122,154,.4)}
+.tab{display:none;padding:25px 20px;max-width:900px;margin:0 auto}
+.tab.on{display:block}
+.sec-title{font-family:'Amiri',serif;font-size:clamp(1.4rem,3vw,2rem);color:var(--go);text-align:center;margin-bottom:8px}
+.sec-sub{text-align:center;color:var(--tl);margin-bottom:20px;font-size:.93rem}
+.kbox{background:linear-gradient(135deg,rgba(201,168,76,.1),rgba(45,122,154,.08));border:1px solid rgba(201,168,76,.35);border-radius:16px;padding:20px;margin-bottom:20px;text-align:center}
+.kbox-title{font-family:'Amiri',serif;font-size:1.05rem;color:var(--go);margin-bottom:12px}
+.krow{display:flex;gap:10px;flex-wrap:wrap;justify-content:center}
+.kinput{font-family:'Noto Naskh Arabic',serif;font-size:1rem;background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:10px 15px;color:var(--cr);outline:none;min-width:200px;flex:1;transition:border-color .3s}
+.kinput:focus{border-color:var(--go)}
+.kinput::placeholder{color:rgba(212,224,232,.4)}
+.kbtn{font-family:'Amiri',serif;font-size:1rem;background:linear-gradient(135deg,var(--gm),var(--gl));border:1px solid var(--go);border-radius:10px;padding:10px 18px;color:var(--gg);cursor:pointer;transition:all .3s;flex-shrink:0}
+.kbtn:hover{background:linear-gradient(135deg,var(--gl),var(--gb))}
+.klist{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-top:12px}
+.kpill{font-family:'Amiri',serif;font-size:.88rem;background:rgba(15,46,70,.7);border:1px solid rgba(201,168,76,.25);border-radius:50px;padding:5px 14px;color:var(--tl);cursor:pointer;transition:all .2s}
+.kpill.on{background:linear-gradient(135deg,var(--gm),var(--gl));border-color:var(--go);color:var(--gg)}
+.reg-form{background:rgba(15,46,70,.6);border:1px solid rgba(201,168,76,.25);border-radius:14px;padding:20px;margin-bottom:20px}
+.frow{display:flex;gap:10px;flex-wrap:wrap;margin-bottom:12px}
+.finput{flex:1;min-width:160px;font-family:'Noto Naskh Arabic',serif;font-size:1rem;background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:11px 15px;color:var(--cr);outline:none;transition:border-color .3s}
+.finput:focus{border-color:var(--go)}
+.finput::placeholder{color:rgba(212,224,232,.5)}
+.fsel{flex:1;min-width:160px;font-family:'Noto Naskh Arabic',serif;font-size:1rem;background:rgba(0,0,0,.5);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:11px 15px;color:var(--cr);outline:none;cursor:pointer}
+.fbtn{width:100%;font-family:'Amiri',serif;font-size:1.15rem;background:linear-gradient(135deg,var(--gm),var(--gl));border:1px solid var(--go);border-radius:11px;padding:13px;color:var(--gg);cursor:pointer;transition:all .3s}
+.fbtn:hover{background:linear-gradient(135deg,var(--gl),var(--gb));box-shadow:0 6px 25px rgba(45,122,154,.5);transform:translateY(-2px)}
+.klabel{font-family:'Amiri',serif;color:var(--go);text-align:center;margin-bottom:10px;font-size:1rem}
+.agrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(82px,1fr));gap:9px;margin-top:15px}
+.jcard{background:rgba(15,46,70,.5);border:1px solid rgba(201,168,76,.2);border-radius:11px;padding:11px 7px;text-align:center;transition:all .3s;cursor:pointer}
+.jcard:hover{border-color:rgba(201,168,76,.5);background:rgba(45,122,154,.2);transform:translateY(-2px)}
+.jcard.done{background:linear-gradient(135deg,rgba(45,122,154,.4),rgba(61,164,200,.2));border-color:var(--gb);cursor:default}
+.jcard.done .jnum{color:var(--gb)}
+.jcard.done .jreader{display:block;color:var(--gg);font-size:.65rem;margin-top:3px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.jnum{font-family:'Amiri',serif;font-size:1.05rem;color:var(--gg);display:block}
+.jlbl{font-size:.68rem;color:var(--tl)}
+.jreader{display:none}
+.overlay{position:fixed;inset:0;background:rgba(0,0,0,.9);z-index:500;display:flex;align-items:flex-start;justify-content:center;padding:15px;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s}
+.overlay.on{opacity:1;pointer-events:all}
+.mbox{background:#0f2e46;border:1px solid rgba(201,168,76,.4);border-radius:18px;padding:22px;max-width:800px;width:100%;margin:auto;position:relative}
+.mhead{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+.mtitle{font-family:'Amiri',serif;font-size:1.35rem;color:var(--go);flex:1;text-align:center}
+.mclose{background:rgba(201,168,76,.15);border:1px solid rgba(201,168,76,.3);border-radius:8px;color:var(--go);font-size:.95rem;padding:5px 12px;cursor:pointer;font-family:'Noto Naskh Arabic',serif;transition:background .2s;flex-shrink:0}
+.mclose:hover{background:rgba(201,168,76,.3)}
+.msub{text-align:center;color:var(--tl);font-size:.85rem;margin-bottom:14px}
+.qtext{font-family:'Amiri',serif;font-size:clamp(1.15rem,2.5vw,1.5rem);line-height:2.6;color:var(--cr);text-align:justify;background:rgba(0,0,0,.25);border-radius:11px;padding:18px;border:1px solid rgba(201,168,76,.15);max-height:55vh;overflow-y:auto;word-spacing:3px}
+.anum{color:var(--go);font-size:.8em;margin:0 3px}
+.shead{text-align:center;color:var(--go);font-family:'Amiri',serif;font-size:1.15rem;margin:15px 0 7px;border-bottom:1px solid rgba(201,168,76,.2);padding-bottom:7px}
+.shead small{display:block;color:var(--gg);font-size:.82rem;margin-top:3px}
+.qloading{text-align:center;color:var(--go);font-family:'Amiri',serif;font-size:1.1rem;padding:40px}
+.mact{display:flex;gap:10px;margin-top:15px;flex-wrap:wrap}
+.mrinput{flex:1;min-width:140px;font-family:'Noto Naskh Arabic',serif;font-size:1rem;background:rgba(0,0,0,.3);border:1px solid rgba(201,168,76,.3);border-radius:10px;padding:11px 15px;color:var(--cr);outline:none}
+.mrinput:focus{border-color:var(--go)}
+.mrinput::placeholder{color:rgba(212,224,232,.4)}
+.mrbtn{flex:1;min-width:170px;font-family:'Amiri',serif;font-size:1.05rem;background:linear-gradient(135deg,var(--gm),var(--gl));border:1px solid var(--go);border-radius:11px;padding:11px;color:var(--gg);cursor:pointer;transition:all .3s}
+.mrbtn:hover{background:linear-gradient(135deg,var(--gl),var(--gb))}
+.duas-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:13px}
+.dcard{background:linear-gradient(135deg,rgba(15,46,70,.7),rgba(10,30,46,.8));border:1px solid rgba(201,168,76,.2);border-radius:13px;padding:18px;transition:transform .2s,box-shadow .2s}
+.dcard:hover{transform:translateY(-3px);box-shadow:0 8px 25px rgba(0,0,0,.3);border-color:rgba(201,168,76,.4)}
+.dnum{font-size:.78rem;color:var(--go);margin-bottom:7px}
+.dtxt{font-family:'Amiri',serif;font-size:1.03rem;color:var(--cr);line-height:1.9}
+.tasbih-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:18px}
+.tcard{background:linear-gradient(135deg,rgba(15,46,70,.7),rgba(10,30,46,.8));border:1px solid rgba(201,168,76,.25);border-radius:16px;padding:22px;text-align:center}
+.ttxt{font-family:'Amiri',serif;font-size:1.25rem;margin-bottom:13px;line-height:1.7}
+.tcwrap{display:flex;align-items:center;justify-content:center;gap:14px;margin-top:8px}
+.tcnum{font-family:'Amiri',serif;font-size:2.4rem;color:var(--go);min-width:65px}
+.tbtn{width:58px;height:58px;border-radius:50%;background:linear-gradient(135deg,var(--gm),var(--gb));border:2px solid var(--go);color:#fff;font-size:1.7rem;cursor:pointer;transition:all .15s;line-height:1}
+.tbtn:active{transform:scale(.92)}
+.treset{background:transparent;border:1px solid rgba(201,168,76,.4);border-radius:7px;color:var(--go);font-family:'Noto Naskh Arabic',serif;font-size:.83rem;padding:5px 11px;cursor:pointer;margin-top:9px;transition:background .2s}
+.treset:hover{background:rgba(201,168,76,.1)}
+.ajar-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:13px}
+.acard{background:linear-gradient(135deg,rgba(15,46,70,.7),rgba(10,30,46,.8));border:1px solid rgba(201,168,76,.25);border-radius:13px;padding:18px;transition:transform .2s}
+.acard:hover{transform:translateY(-3px)}
+.aaction{font-family:'Amiri',serif;font-size:1.05rem;color:var(--gg);margin-bottom:7px;line-height:1.7}
+.areward{font-size:.88rem;color:var(--gb);border-top:1px solid rgba(201,168,76,.15);padding-top:7px;margin-top:7px}
+.kdua{background:linear-gradient(135deg,rgba(15,46,70,.8),rgba(10,30,46,.9));border:1px solid rgba(201,168,76,.4);border-radius:18px;padding:32px;font-family:'Amiri',serif;font-size:1.12rem;line-height:2.2;color:var(--cr);text-align:center;box-shadow:0 10px 40px rgba(0,0,0,.3)}
+.kdua p{margin-bottom:16px}
+.kdua .hl{color:var(--gg)}
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(120px);background:linear-gradient(135deg,var(--gm),var(--gl));border:1px solid var(--go);border-radius:11px;padding:13px 26px;color:var(--gg);font-family:'Amiri',serif;font-size:1.05rem;z-index:1000;transition:transform .4s ease;box-shadow:0 8px 30px rgba(0,0,0,.4);text-align:center;max-width:90vw}
+.toast.on{transform:translateX(-50%) translateY(0)}
+.footer{text-align:center;padding:35px 20px;color:rgba(212,224,232,.45);font-size:.88rem;border-top:1px solid rgba(201,168,76,.1);margin-top:35px}
+.footer .fn{color:var(--go);font-family:'Amiri',serif;font-size:1.05rem;display:block;margin-bottom:5px}
+@keyframes fd{from{opacity:0;transform:translateY(-18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes fu{from{opacity:0;transform:translateY(18px)}to{opacity:1;transform:translateY(0)}}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.6}}
+.glow{animation:pulse 3s ease infinite}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--gd)}
+::-webkit-scrollbar-thumb{background:var(--gm);border-radius:3px}
+@media(max-width:600px){
+  .agrid{grid-template-columns:repeat(5,1fr);gap:6px}
+  .duas-grid,.tasbih-grid,.ajar-grid{grid-template-columns:1fr}
+  .mact,.krow{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<div class="sadaqa">🤲 ختمة شفاء لـ<strong>شادن شريف</strong> — اللهم اشفه وعافه — كل من قرأ أو دعا أو سبّح فله أجره وللمريض شفاؤه بإذن الله</div>
+
+<div class="wrap">
+  <div class="hero">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="divider">❧ ✦ ❧</div>
+    <div class="mem-txt">ختمة شفاء وعافية لأخينا</div>
+    <div class="name" id="heroName">شادن شريف</div>
+    <div class="rahma">اللهم اشفه شفاءً لا يُغادر سقماً</div>
+    <div class="divider glow">✦ ✦ ✦</div>
+    <div class="quote">﴿ وَإِذَا مَرِضْتُ فَهُوَ يَشْفِينِ ﴾</div>
+    <div class="prog-box">
+      <div class="prog-title">📖 تقدم الختمة</div>
+      <div class="prog-track"><div class="prog-fill" id="progFill"></div></div>
+      <div class="prog-stats">
+        <span>تم قراءة <b id="doneCount">0</b> جزء</span>
+        <span>متبقي <b id="leftCount">30</b> جزء</span>
+        <span><b id="pctCount">0</b>% مكتمل</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="tabs" id="tabsNav">
+    <button class="tb on" data-tab="quran">📖 ختمة القرآن</button>
+    <button class="tb" data-tab="tasbih">📿 تسبيح</button>
+    <button class="tb" data-tab="duas">🤲 أدعية للشفاء</button>
+    <button class="tb" data-tab="kdua">🌿 دعاء الختمة</button>
+    <button class="tb" data-tab="ajar">⭐ أعمال بأجر عظيم</button>
+  </div>
+
+  <!-- QURAN TAB -->
+  <div id="tab-quran" class="tab on">
+    <div class="sec-title">📖 ختمة القرآن الكريم</div>
+    <div class="sec-sub">اضغط على أي جزء لتقرأه — كل حرف دعوة شفاء بإذن الله</div>
+    <div class="db-bar load" id="dbStatus"><span class="db-dot"></span><span id="dbMsg">جاري الاتصال بقاعدة البيانات...</span></div>
+    <div class="kbox">
+      <div class="kbox-title">✦ إنشاء ختمة جديدة — اكتب اسم المريض ✦</div>
+      <div class="krow">
+        <input class="kinput" id="newKhatmaName" placeholder="اسم المريض...">
+        <button class="kbtn" id="createBtn">✦ إنشاء ختمة</button>
+      </div>
+      <div class="klist" id="khatmaList"></div>
+    </div>
+    <div class="reg-form" id="regForm" style="display:none">
+      <div class="klabel" id="klabel"></div>
+      <div class="frow">
+        <input class="finput" id="readerName" placeholder="اسمك الكريم...">
+        <select class="fsel" id="juzSel"></select>
+      </div>
+      <button class="fbtn" id="regBtn">✦ سجّل الجزء وافتحه للقراءة ✦</button>
+    </div>
+    <div class="agrid" id="ajzaaGrid"></div>
+  </div>
+
+  <!-- TASBIH TAB -->
+  <div id="tab-tasbih" class="tab">
+    <div class="sec-title">📿 تسبيح وذكر</div>
+    <div class="sec-sub" id="tasbihSub">كل تسبيحة دعوة شفاء لـشادن شريف</div>
+    <div class="tasbih-grid" id="tasbihGrid"></div>
+  </div>
+
+  <!-- DUAS TAB -->
+  <div id="tab-duas" class="tab">
+    <div class="sec-title">🤲 أدعية الشفاء</div>
+    <div class="sec-sub" id="duasSub">اللهم اشفِ شادن شريف وعافه</div>
+    <div class="duas-grid" id="duasGrid"></div>
+  </div>
+
+  <!-- KDUA TAB -->
+  <div id="tab-kdua" class="tab">
+    <div class="sec-title">🌿 دعاء ختم القرآن الكريم</div>
+    <div class="sec-sub" id="kduaSub">لشفاء شادن شريف حفظه الله</div>
+    <div class="kdua" id="kduaBox"></div>
+  </div>
+
+  <!-- AJAR TAB -->
+  <div id="tab-ajar" class="tab">
+    <div class="sec-title">⭐ أعمال بأجر عظيم</div>
+    <div class="sec-sub" id="ajarSub">أهدِ ثوابها لشفاء شادن شريف</div>
+    <div class="ajar-grid" id="ajarGrid"></div>
+  </div>
+
+  <div class="footer">
+    <span class="fn">ختمة شفاء لـشادن شريف — اللهم اشفه وعافه واشفِ مرضى المسلمين جميعاً</span>
+    اللهم ربّ الناس أذهب البأس اشفِ أنت الشافي لا شفاء إلا شفاؤك شفاءً لا يُغادر سقماً
+  </div>
+</div>
+
+<!-- READ MODAL -->
+<div class="overlay" id="overlay">
+  <div class="mbox">
+    <div class="mhead">
+      <div class="mtitle" id="mtitle"></div>
+      <button class="mclose" id="mcloseBtn">✕ إغلاق</button>
+    </div>
+    <div class="msub" id="msub"></div>
+    <div class="qtext" id="qtext"><div class="qloading">جاري التحميل... 📖</div></div>
+    <div class="mact">
+      <input class="mrinput" id="mreaderName" placeholder="اسمك الكريم...">
+      <button class="mrbtn" id="mregBtn">✅ سجّل إنك قرأت هذا الجزء</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ===== SUPABASE CONFIG =====
+var SB_URL='https://qlnhbffhkoabanyoynlb.supabase.co';
+var SB_KEY='eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InFsbmhiZmZoa29hYmFueW95bmxiIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzU2NTY2MjgsImV4cCI6MjA5MTIzMjYyOH0.1M58H1nVm3wcG7Dxpd7mlJq9SosZvMDB7YGWKPFxl44';
+
+function sb(path,opts){
+  return fetch(SB_URL+'/rest/v1/'+path,Object.assign({
+    headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=representation'}
+  },opts||{}));
+}
+
+// ===== STATIC DATA =====
+var AJZAA=["الفاتحة والبقرة","البقرة","آل عمران","النساء","المائدة","الأنعام","الأعراف","الأنفال والتوبة","يونس وهود","يوسف والرعد","إبراهيم والحجر","النحل","الإسراء والكهف","الكهف ومريم","طه والأنبياء","الحج والمؤمنون","النور والفرقان","الشعراء والنمل","النمل والقصص والعنكبوت","الروم ولقمان والسجدة","الأحزاب وسبأ وفاطر","يس والصافات","الزمر وغافر","فصلت والشورى","الزخرف والدخان والجاثية","الأحقاف ومحمد والفتح","الحجرات والذاريات","الطور والنجم والمرسلات","الملك والقيامة والنبأ","عبس والشمس والناس"];
+
+var TASBIH=[
+  {t:"سُبْحَانَ اللَّهِ",c:"#3da4c8"},{t:"الْحَمْدُ لِلَّهِ",c:"#c9a84c"},
+  {t:"اللَّهُ أَكْبَرُ",c:"#2d7a9a"},{t:"لَا إِلَهَ إِلَّا اللَّهُ",c:"#e8c97a"},
+  {t:"سُبْحَانَ اللَّهِ وَبِحَمْدِهِ",c:"#3da4c8"},{t:"سُبْحَانَ اللَّهِ الْعَظِيمِ",c:"#c9a84c"},
+  {t:"أَسْتَغْفِرُ اللَّهَ",c:"#2d7a9a"},{t:"لَا حَوْلَ وَلَا قُوَّةَ إِلَّا بِاللَّهِ",c:"#e8c97a"},
+  {t:"صَلَّى اللَّهُ عَلَى النَّبِيِّ ﷺ",c:"#3da4c8"},{t:"اللَّهُمَّ رَبَّ النَّاسِ اشْفِ",c:"#c9a84c"},
+  {t:"اللَّهُمَّ عَافِهِ وَاشْفِهِ",c:"#e8c97a"},{t:"رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا",c:"#2d7a9a"}
+];
+
+var AJAR=[
+  {a:"قراءة سورة الفاتحة ٧ مرات على المريض",r:"الفاتحة رقية — وما أدراك ما الفاتحة"},
+  {a:"سبحان الله وبحمده ١٠٠ مرة",r:"تُحَطّ خطاياه وإن كانت مثل زبد البحر"},
+  {a:"سبحان الله وبحمده سبحان الله العظيم",r:"كلمتان خفيفتان على اللسان، ثقيلتان في الميزان، حبيبتان إلى الرحمن"},
+  {a:"لا إله إلا الله وحده لا شريك له له الملك وله الحمد ١٠٠ مرة",r:"كعتق ١٠ رقاب وكُتبت له ١٠٠ حسنة ومُحيت عنه ١٠٠ سيئة"},
+  {a:"الصلاة على النبي ﷺ ١٠ مرات",r:"صلّى الله عليه بها عشراً ورُفع بها ١٠ درجات"},
+  {a:"قراءة آية الكرسي بعد كل صلاة",r:"لا يمنعه من دخول الجنة إلا الموت"},
+  {a:"قراءة سورة الملك كل ليلة",r:"تشفع لصاحبها وتمنع عذاب القبر"},
+  {a:"زيارة المريض",r:"من عاد مريضاً لم يزل في خُرفة الجنة حتى يرجع"},
+  {a:"الاستغفار ١٠٠ مرة",r:"من لزم الاستغفار جعل الله له من كل ضيق مخرجاً"},
+  {a:"الدعاء للمريض عند زيارته",r:"ما من مسلم يعود مريضاً فيدعو له إلا قالت الملائكة آمين ولك بمثل"},
+  {a:"قراءة سورة الإخلاص ٣ مرات",r:"تعدل ختم القرآن الكريم كاملاً"},
+  {a:"الصدقة بنية الشفاء",r:"داووا مرضاكم بالصدقة"},
+  {a:"قراءة المعوذتين على المريض",r:"كان النبي ﷺ ينفث بهما على نفسه عند المرض"},
+  {a:"التسبيح بعد كل صلاة ٣٣+٣٣+٣٤",r:"غُفرت خطاياه وإن كانت مثل زبد البحر"},
+  {a:"قراءة الفاتحة وإهداء ثوابها للمريض",r:"الفاتحة أعظم سورة في القرآن"},
+  {a:"الدعاء في ثلث الليل الأخير",r:"ينزل ربنا فيقول: من يدعوني فأستجيب له"},
+  {a:"قول بسم الله أرقيك من كل داء يؤذيك",r:"من الرقية الشرعية النبوية"},
+  {a:"قراءة يس صباحاً",r:"من قرأ يس ابتغاء وجه الله غُفر له"},
+  {a:"إطعام مسكين بنية شفاء المريض",r:"داووا مرضاكم بالصدقة"},
+  {a:"أداء ركعتين حاجة لشفاء المريض",r:"ما من عبد يدعو الله بدعوة إلا آتاه الله إياها"}
+];
+
+// ===== STATE =====
+var DEFAULT_NAME='شادن شريف';
+var currentK=null;
+var assignments={};
+var tcounts=TASBIH.map(function(){return 0;});
+try{var _ts=localStorage.getItem('khatma_shifa_tasbih');if(_ts)tcounts=JSON.parse(_ts);}catch(e){}
+var currentJuz=null;
+var allKhatmas=[];
+
+// ===== TOAST =====
+var toastT;
+function toast(msg){
+  var el=document.getElementById('toast');
+  el.textContent=msg;el.classList.add('on');
+  clearTimeout(toastT);toastT=setTimeout(function(){el.classList.remove('on');},3500);
+}
+
+// ===== DB STATUS =====
+function setDbStatus(type,msg){
+  var bar=document.getElementById('dbStatus');
+  bar.className='db-bar '+type;
+  document.getElementById('dbMsg').textContent=msg;
+}
+
+// ===== TABS =====
+document.getElementById('tabsNav').addEventListener('click',function(e){
+  var btn=e.target;if(!btn.classList.contains('tb'))return;
+  var id=btn.getAttribute('data-tab');
+  document.querySelectorAll('.tb').forEach(function(b){b.classList.remove('on');});
+  document.querySelectorAll('.tab').forEach(function(t){t.classList.remove('on');});
+  btn.classList.add('on');
+  var el=document.getElementById('tab-'+id);if(el)el.classList.add('on');
+});
+
+// ===== PROGRESS =====
+function updateProgress(){
+  var done=Object.keys(assignments).length;
+  var pct=Math.round(done/30*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('doneCount').textContent=done;
+  document.getElementById('leftCount').textContent=30-done;
+  document.getElementById('pctCount').textContent=pct;
+}
+
+// ===== SUPABASE HELPERS =====
+async function loadKhatmas(){
+  try{
+    var r=await sb('shifa_khatmas?select=id,name,created_at&order=created_at.asc');
+    if(!r.ok)throw new Error('HTTP '+r.status);
+    var data=await r.json();
+    setDbStatus('ok','✅ متصل بقاعدة البيانات — البيانات مشتركة بين جميع الزوار');
+    return data;
+  }catch(e){
+    setDbStatus('err','❌ خطأ في الاتصال: '+e.message);
+    return [];
+  }
+}
+
+async function createKhatma(name){
+  var r=await sb('shifa_khatmas',{method:'POST',body:JSON.stringify({name:name})});
+  if(!r.ok){var err=await r.json();throw new Error(err.message||r.status);}
+  var d=await r.json();
+  return Array.isArray(d)?d[0]:d;
+}
+
+async function loadAssignments(khatmaId){
+  var r=await sb('shifa_juz_assignments?khatma_id=eq.'+khatmaId+'&select=juz_number,reader_name&order=juz_number.asc');
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  return await r.json();
+}
+
+async function registerJuz(khatmaId,juzNum,readerName){
+  var r=await sb('shifa_juz_assignments?khatma_id=eq.'+khatmaId+'&juz_number=eq.'+juzNum+'&select=id');
+  if(!r.ok)throw new Error('HTTP '+r.status);
+  var ex=await r.json();
+  if(ex.length>0)throw new Error('taken');
+  var r2=await sb('shifa_juz_assignments',{method:'POST',body:JSON.stringify({khatma_id:khatmaId,juz_number:juzNum,reader_name:readerName})});
+  if(!r2.ok){var err=await r2.json();throw new Error(err.message||r2.status);}
+  return await r2.json();
+}
+
+// ===== KHATMA UI =====
+async function refreshKhatmaList(){
+  allKhatmas=await loadKhatmas();
+  var list=document.getElementById('khatmaList');
+  list.innerHTML='';
+  allKhatmas.forEach(function(k){
+    var pill=document.createElement('button');
+    pill.className='kpill'+(currentK&&currentK.id===k.id?' on':'');
+    pill.textContent=k.name;
+    pill.setAttribute('data-id',k.id);
+    pill.setAttribute('data-name',k.name);
+    list.appendChild(pill);
+  });
+  if(!currentK&&allKhatmas.length>0) await selectKhatma(allKhatmas[0]);
+}
+
+async function selectKhatma(k){
+  currentK=k;
+  document.getElementById('heroName').textContent=k.name;
+  document.getElementById('klabel').textContent='✦ ختمة شفاء لـ: '+k.name+' ✦';
+  document.getElementById('regForm').style.display='block';
+  updateNameUI();
+  document.querySelectorAll('.kpill').forEach(function(p){
+    p.classList.toggle('on',p.getAttribute('data-id')===k.id);
+  });
+  try{
+    var rows=await loadAssignments(k.id);
+    assignments={};
+    rows.forEach(function(r){assignments[r.juz_number]=r.reader_name;});
+    renderAjzaa();renderJuzSelect();updateProgress();
+  }catch(e){toast('خطأ في تحميل الأجزاء: '+e.message);}
+}
+
+document.getElementById('khatmaList').addEventListener('click',async function(e){
+  var pill=e.target;if(!pill.classList.contains('kpill'))return;
+  await selectKhatma({id:pill.getAttribute('data-id'),name:pill.getAttribute('data-name')});
+});
+
+document.getElementById('createBtn').addEventListener('click',async function(){
+  var name=document.getElementById('newKhatmaName').value.trim();
+  if(!name){toast('من فضلك اكتب اسم المريض');return;}
+  try{
+    await createKhatma(name);
+    document.getElementById('newKhatmaName').value='';
+    toast('✦ تم إنشاء ختمة شفاء لـ '+name+' 🤲');
+    await refreshKhatmaList();
+    var found=allKhatmas.find(function(x){return x.name===name;});
+    if(found)await selectKhatma(found);
+  }catch(e){
+    var msg=e.message||'';
+    if(msg.indexOf('unique')>-1||msg.indexOf('duplicate')>-1||msg.indexOf('23505')>-1)
+      toast('هذه الختمة موجودة بالفعل، اضغط عليها من القائمة');
+    else toast('خطأ: '+msg);
+  }
+});
+
+// ===== REGISTER JUZ =====
+document.getElementById('regBtn').addEventListener('click',async function(){
+  var name=document.getElementById('readerName').value.trim();
+  var juz=parseInt(document.getElementById('juzSel').value);
+  if(!name){toast('من فضلك اكتب اسمك 🌸');return;}
+  if(!juz){toast('اختر الجزء الذي ستقرأه');return;}
+  if(!currentK){toast('اختر ختمة أولاً');return;}
+  try{
+    await registerJuz(currentK.id,juz,name);
+    assignments[juz]=name;
+    renderAjzaa();renderJuzSelect();updateProgress();
+    document.getElementById('readerName').value='';
+    document.getElementById('juzSel').value='';
+    openModal(juz);
+  }catch(e){
+    if(e.message==='taken')toast('هذا الجزء تم أخذه بالفعل، اختر جزءاً آخر');
+    else toast('خطأ: '+e.message);
+  }
+});
+
+// ===== AJZAA =====
+function renderJuzSelect(){
+  var sel=document.getElementById('juzSel');
+  sel.innerHTML='<option value="">اختر الجزء...</option>';
+  AJZAA.forEach(function(n,i){
+    var num=i+1;
+    if(!assignments[num]){
+      var opt=document.createElement('option');
+      opt.value=num;opt.textContent='الجزء '+num+' — '+n;
+      sel.appendChild(opt);
+    }
+  });
+}
+
+function renderAjzaa(){
+  var grid=document.getElementById('ajzaaGrid');
+  grid.innerHTML='';
+  AJZAA.forEach(function(name,i){
+    var num=i+1;var done=!!assignments[num];
+    var card=document.createElement('div');
+    card.className='jcard'+(done?' done':'');
+    card.innerHTML='<span class="jnum">'+num+'</span>'+
+      '<span class="jlbl">'+(done?'✅ قُرئ':'اضغط')+'</span>'+
+      '<span class="jreader">'+(assignments[num]||'')+'</span>';
+    if(!done)card.setAttribute('data-juz',num);
+    grid.appendChild(card);
+  });
+}
+
+document.getElementById('ajzaaGrid').addEventListener('click',function(e){
+  var card=e.target.closest('.jcard');
+  if(!card||card.classList.contains('done'))return;
+  var juz=parseInt(card.getAttribute('data-juz'));
+  if(juz)openModal(juz);
+});
+
+// ===== MODAL =====
+function openModal(num){
+  currentJuz=num;
+  document.getElementById('mtitle').textContent='الجزء '+num+' — '+AJZAA[num-1];
+  document.getElementById('msub').textContent='اقرأ الجزء ثم سجّل قراءتك — ثوابك دعوة شفاء لـ'+(currentK?currentK.name:'');
+  document.getElementById('qtext').innerHTML='<div class="qloading">جاري تحميل الجزء '+num+'... 📖</div>';
+  document.getElementById('overlay').classList.add('on');
+  document.body.style.overflow='hidden';
+  loadJuz(num);
+}
+function closeModal(){
+  document.getElementById('overlay').classList.remove('on');
+  document.body.style.overflow='';
+}
+document.getElementById('mcloseBtn').addEventListener('click',closeModal);
+document.getElementById('overlay').addEventListener('click',function(e){if(e.target===this)closeModal();});
+
+document.getElementById('mregBtn').addEventListener('click',async function(){
+  var name=(document.getElementById('mreaderName').value.trim()||document.getElementById('readerName').value.trim());
+  if(!name){toast('من فضلك اكتب اسمك 🌸');return;}
+  if(!currentJuz||!currentK)return;
+  if(assignments[currentJuz]){toast('هذا الجزء مسجّل بالفعل ✅');closeModal();return;}
+  try{
+    await registerJuz(currentK.id,currentJuz,name);
+    assignments[currentJuz]=name;
+    renderAjzaa();renderJuzSelect();updateProgress();
+    closeModal();
+    toast('جزاك الله خيراً يا '+name+' 🤲 الجزء '+currentJuz+' تم تسجيله');
+  }catch(e){
+    if(e.message==='taken')toast('هذا الجزء أُخذ للتو، اختر جزءاً آخر');
+    else toast('خطأ: '+e.message);
+  }
+});
+
+// ===== QURAN LOADER =====
+async function loadJuz(num){
+  var el=document.getElementById('qtext');
+  var apis=['https://api.alquran.cloud/v1/juz/'+num+'/quran-uthmani','https://api.alquran.cloud/v1/juz/'+num+'/quran-simple'];
+  for(var i=0;i<apis.length;i++){
+    try{
+      var ctrl=new AbortController();
+      var tid=setTimeout(function(){ctrl.abort();},12000);
+      var r=await fetch(apis[i],{signal:ctrl.signal});
+      clearTimeout(tid);
+      if(!r.ok)continue;
+      var d=await r.json();
+      var ayahs=d.data&&d.data.ayahs;
+      if(!ayahs||!ayahs.length)continue;
+      var html='';var last=null;
+      ayahs.forEach(function(a){
+        if(a.surah.number!==last){
+          last=a.surah.number;
+          var bism=(a.surah.number!==9&&a.numberInSurah===1)?'\uFDF2<br>':'';
+          html+='<div class="shead">'+bism+'\u0633\u0648\u0631\u0629 '+a.surah.name+'<small>'+a.surah.englishName+'</small></div>';
+        }
+        html+=(a.text||'')+' <span class="anum">\uFD3E'+a.numberInSurah+'\uFD3F</span> ';
+      });
+      el.innerHTML=html;return;
+    }catch(e){continue;}
+  }
+  el.innerHTML='<div style="text-align:center;padding:35px">'+
+    '<div style="font-size:2rem;margin-bottom:14px">📶</div>'+
+    '<p style="font-family:Amiri,serif;font-size:1.15rem;color:#c9a84c;margin-bottom:12px">تعذّر تحميل الجزء '+num+'</p>'+
+    '<p style="color:#d4e0e8;margin-bottom:18px;font-size:.93rem">تأكد من اتصالك بالإنترنت ثم اضغط إعادة المحاولة</p>'+
+    '<button onclick="loadJuz('+num+')" style="background:linear-gradient(135deg,#1a4c6e,#2d7a9a);border:1px solid #c9a84c;border-radius:10px;padding:11px 22px;color:#e8c97a;font-family:Amiri,serif;font-size:1.05rem;cursor:pointer">↺ إعادة المحاولة</button>'+
+    '</div>';
+}
+
+// ===== TASBIH =====
+function renderTasbih(){
+  var grid=document.getElementById('tasbihGrid');grid.innerHTML='';
+  TASBIH.forEach(function(item,i){
+    var card=document.createElement('div');card.className='tcard';
+    card.innerHTML='<div class="ttxt" style="color:'+item.c+'">'+item.t+'</div>'+
+      '<div class="tcwrap"><button class="tbtn" data-i="'+i+'">+</button>'+
+      '<div class="tcnum" id="tc'+i+'">'+tcounts[i]+'</div></div>'+
+      '<button class="treset" data-i="'+i+'">إعادة</button>';
+    grid.appendChild(card);
+  });
+}
+document.getElementById('tasbihGrid').addEventListener('click',function(e){
+  var btn=e.target;var i=btn.getAttribute('data-i');if(i===null)return;i=parseInt(i);
+  if(btn.classList.contains('tbtn')){tcounts[i]++;document.getElementById('tc'+i).textContent=tcounts[i];}
+  else if(btn.classList.contains('treset')){tcounts[i]=0;document.getElementById('tc'+i).textContent=0;}
+  try{localStorage.setItem('khatma_shifa_tasbih',JSON.stringify(tcounts));}catch(e){}
+});
+
+// ===== DUAS =====
+function getDuas(name){
+  var n=currentK?currentK.name:DEFAULT_NAME;
+  return [
+    "اللهم اشفِ "+n+" شفاءً لا يُغادر سقماً",
+    "اللهم ربّ الناس أذهب البأس عن "+n+" اشفِ أنت الشافي لا شفاء إلا شفاؤك",
+    "اللهم عافِ "+n+" في بدنه وعافِه في سمعه وعافِه في بصره",
+    "أسأل الله العظيم ربّ العرش العظيم أن يشفي "+n,
+    "اللهم اشفِ "+n+" واشفِ مرضى المسلمين أجمعين",
+    "اللهم ألبس "+n+" لباس الصحة والعافية",
+    "اللهم اشفِ "+n+" من كل داء وردّه إلى أهله سالماً معافى",
+    "اللهم خذ بيد "+n+" واجعل هذا المرض كفّارةً وطهوراً له",
+    "اللهم أنزل على "+n+" الشفاء من عندك وأذهب عنه الألم",
+    "اللهم ارحم ضعف "+n+" وقوّه وعافِه",
+    "بسم الله أرقي "+n+" من كل شيء يؤذيه من شر كل نفس أو عين حاسد الله يشفيه",
+    "اللهم اجعل ما أصاب "+n+" تكفيراً لذنوبه ورفعةً في درجاته",
+    "اللهم ردّ "+n+" إلى الصحة والعافية رداً جميلاً",
+    "اللهم أنت الشافي المعافي فاشفِ "+n+" شفاءً تاماً عاجلاً",
+    "اللهم امسح على "+n+" بيمينك الشافية وأذهب عنه الداء",
+    "اللهم لا تجعل "+n+" يعاني وأسرع له بالشفاء يا أرحم الراحمين",
+    "اللهم قوِّ جسد "+n+" وطهّره من كل سوء وبأس",
+    "اللهم اكتب لـ"+n+" الشفاء العاجل واجبره جبراً يليق بكرمك",
+    "اللهم اجعل كل لحظة ألم يمر بها "+n+" في ميزان حسناته",
+    "اللهم اشرح صدر "+n+" وطمئن قلبه وأرِح باله",
+    "اللهم أخرج "+n+" من المستشفى سالماً معافى بإذنك",
+    "اللهم اجعل "+n+" من الذين تبدّل أمراضهم صحة وعافية",
+    "اللهم هوّن على "+n+" ما يعانيه واجعل له في كل لحظة فرجاً",
+    "اللهم بكل اسم هو لك اشفِ "+n+" وعافِه",
+    "اللهم أنت الذي تحيي وتميت فاكتب لـ"+n+" الحياة بصحة وعافية",
+    "اللهم اجعل شفاء "+n+" قريباً عاجلاً غير آجل",
+    "اللهم ارفع عن "+n+" البلاء والوباء والداء",
+    "اللهم أحطّ "+n+" بحفظك ورعايتك وعنايتك",
+    "اللهم ردّ "+n+" إلينا وهو في أحسن حال وأتم عافية",
+    "اللهم اجعل دعاءنا هذا سبباً في شفاء "+n+" يا سميع الدعاء",
+    "اللهم طهّر جسد "+n+" من كل مرض وسقم",
+    "اللهم أنزل السكينة على قلب "+n+" وطمئنه بشفائك",
+    "اللهم اجعل أيام "+n+" القادمة أيام عافية وصحة وفرح",
+    "اللهم لا تكِل "+n+" إلى أحد سواك فأنت حسبه ونعم الوكيل",
+    "اللهم ثبّت "+n+" وارزقه الصبر الجميل وعجّل له الشفاء",
+    "اللهم اجعل كل من قرأ ودعا في هذه الصفحة في ميزان حسناته",
+    "اللهم تقبّل منا ختمة القرآن واجعلها سبب شفاء "+n,
+    "اللهم اشفِ "+n+" واشفنا واشفِ مرضى المسلمين جميعاً",
+    "اللهم بشّر "+n+" بالعافية كما بشّرت أيوب عليه السلام",
+    "آمين آمين آمين يا ربّ العالمين"
+  ];
+}
+
+function renderDuas(){
+  var grid=document.getElementById('duasGrid');grid.innerHTML='';
+  getDuas(currentK?currentK.name:'المريض').forEach(function(dua,i){
+    var card=document.createElement('div');card.className='dcard';
+    card.innerHTML='<div class="dnum">دعاء '+(i+1)+'</div><div class="dtxt">'+dua+'</div>';
+    grid.appendChild(card);
+  });
+}
+
+// ===== KDUA =====
+function getKDua(name){
+  var n=name||'المريض';
+  return '<p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p>'+
+    '<p>اللَّهُمَّ إِنَّنَا أَتَمَمْنَا تِلاوَةَ كِتَابِكَ الْكَرِيمِ<br>وَنَسْأَلُكَ أَنْ تَجْعَلَ ثَوَابَ هَذِهِ الْخَتْمَةِ الْمُبَارَكَةِ<br>سَبَبًا فِي شِفَاءِ <span class="hl">'+n+'</span> حَفِظَهُ اللَّهُ</p>'+
+    '<p>اللَّهُمَّ اقْبَلْ مِنَّا هَذِهِ الْخَتْمَةَ<br>وَاجْعَلْهَا نُوراً وَشِفَاءً وَرَحْمَةً لِـ<span class="hl">'+n+'</span></p>'+
+    '<p>اللَّهُمَّ بِحُرْمَةِ الْقُرْآنِ الْعَظِيمِ<br>اشْفِ <span class="hl">'+n+'</span> شِفَاءً لَا يُغَادِرُ سَقَمًا<br>وَعَافِهِ مُعَافَاةً لَا تُبْقِي دَاءً</p>'+
+    '<p>اللَّهُمَّ رَبَّ النَّاسِ أَذْهِبِ الْبَأْسَ<br>اشْفِ أَنْتَ الشَّافِي لَا شِفَاءَ إِلَّا شِفَاؤُكَ<br>شِفَاءً لَا يُغَادِرُ سَقَمًا</p>'+
+    '<p>اللَّهُمَّ أَلْبِسْ <span class="hl">'+n+'</span> لِبَاسَ الصِّحَّةِ وَالْعَافِيَةِ<br>وَرُدَّهُ إِلَى أَهْلِهِ سَالِمًا مُعَافًى</p>'+
+    '<p>اللَّهُمَّ اجْعَلْ مَا أَصَابَ <span class="hl">'+n+'</span><br>تَكْفِيرًا لِذُنُوبِهِ وَرَفْعَةً فِي دَرَجَاتِهِ</p>'+
+    '<p>اللَّهُمَّ بَشِّرْهُ بِالْعَافِيَةِ<br>كَمَا بَشَّرْتَ أَيُّوبَ عَلَيْهِ السَّلَامُ بِالشِّفَاءِ</p>'+
+    '<p>اللَّهُمَّ أَخْرِجْ <span class="hl">'+n+'</span> مِنَ الْمُسْتَشْفَى<br>وَهُوَ فِي أَتَمِّ صِحَّةٍ وَأَحْسَنِ حَالٍ</p>'+
+    '<p>اللَّهُمَّ اجْعَلْ أَيَّامَهُ الْقَادِمَةَ<br>أَيَّامَ فَرَحٍ وَصِحَّةٍ وَعَافِيَةٍ</p>'+
+    '<p>اللَّهُمَّ تَقَبَّلْ مِنَّا هَذَا الْعَمَلَ<br>وَاجْعَلْهُ فِي مِيزَانِ حَسَنَاتِنَا وَحَسَنَاتِ <span class="hl">'+n+'</span></p>'+
+    '<p><span class="hl">آمِينَ... آمِينَ... آمِينَ يَا رَبَّ الْعَالَمِينَ</span></p>'+
+    '<p>وَصَلَّى اللَّهُمَّ وَسَلَّمَ عَلَى سَيِّدِنَا مُحَمَّدٍ وَعَلَى آلِهِ وَصَحْبِهِ أَجْمَعِينَ</p>';
+}
+
+// ===== AJAR =====
+function renderAjar(){
+  var grid=document.getElementById('ajarGrid');grid.innerHTML='';
+  AJAR.forEach(function(item){
+    var card=document.createElement('div');card.className='acard';
+    card.innerHTML='<div class="aaction">✦ '+item.a+'</div><div class="areward">🌿 '+item.r+'</div>';
+    grid.appendChild(card);
+  });
+}
+
+// ===== UPDATE DYNAMIC NAME UI =====
+function updateNameUI(){
+  var n=currentK?currentK.name:DEFAULT_NAME;
+  document.getElementById('heroName').textContent=n;
+  document.getElementById('tasbihSub').textContent='كل تسبيحة دعوة شفاء لـ'+n+' حفظه الله';
+  document.getElementById('duasSub').textContent='اللهم اشفِ '+n+' وعافه';
+  document.getElementById('kduaSub').textContent='لشفاء '+n+' حفظه الله';
+  document.getElementById('ajarSub').textContent='أهدِ ثوابها لشفاء '+n+' حفظه الله';
+  document.getElementById('kduaBox').innerHTML=getKDua(n);
+  renderDuas();
+}
+
+// ===== INIT =====
+renderTasbih();
+renderAjar();
+renderAjzaa();
+renderJuzSelect();
+updateNameUI();
+document.getElementById('klabel').textContent='✦ ختمة شفاء لـ: '+DEFAULT_NAME+' ✦';
+document.getElementById('regForm').style.display='block';
+
+(async function(){
+  await refreshKhatmaList();
+})();
+</script>
+</body>
+</html>
