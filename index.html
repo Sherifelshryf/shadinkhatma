@@ -312,7 +312,7 @@ button{-webkit-tap-highlight-color:transparent}
     <div class="qtext" id="qtext"><div class="qloading">جاري التحميل... 📖</div></div>
     <div class="mact">
       <input class="mrinput" id="mreaderName" placeholder="اسمك الكريم...">
-      <button class="mrbtn" id="mregBtn">✅ سجّل إنك قرأت هذا الجزء</button>
+      <button class="mrbtn" id="mregBtn">📖 سأقرأ هذا الجزء</button><button class="mrbtn" id="finishBtn">✅ أنهيت قراءة الجزء</button><button class="mrbtn" id="toggleBtn">🔄 تبديل الحالة</button>
     </div>
   </div>
 </div>
@@ -368,7 +368,7 @@ var AJAR=[
 // ===== STATE =====
 var DEFAULT_NAME='شادن شريف';
 var currentK=null;
-var assignments={};
+var assignments={}; // {juz_number: {reader_name, completed}}
 var tcounts=TASBIH.map(function(){return 0;});
 try{var _ts=localStorage.getItem('khatma_shifa_tasbih');if(_ts)tcounts=JSON.parse(_ts);}catch(e){}
 var currentJuz=null;
@@ -401,7 +401,7 @@ document.getElementById('tabsNav').addEventListener('click',function(e){
 
 // ===== PROGRESS =====
 function updateProgress(){
-  var done=Object.keys(assignments).length;
+  var done=Object.values(assignments).filter(function(x){return x&&x.completed;}).length;
   var pct=Math.round(done/30*100);
   document.getElementById('progFill').style.width=pct+'%';
   document.getElementById('doneCount').textContent=done;
@@ -431,7 +431,7 @@ async function createKhatma(name){
 }
 
 async function loadAssignments(khatmaId){
-  var r=await sb('shifa_juz_assignments?khatma_id=eq.'+khatmaId+'&select=juz_number,reader_name&order=juz_number.asc');
+  var r=await sb('shifa_juz_assignments?khatma_id=eq.'+khatmaId+'&select=juz_number,reader_name,completed&order=juz_number.asc');
   if(!r.ok)throw new Error('HTTP '+r.status);
   return await r.json();
 }
@@ -444,6 +444,12 @@ async function registerJuz(khatmaId,juzNum,readerName){
   var r2=await sb('shifa_juz_assignments',{method:'POST',body:JSON.stringify({khatma_id:khatmaId,juz_number:juzNum,reader_name:readerName})});
   if(!r2.ok){var err=await r2.json();throw new Error(err.message||r2.status);}
   return await r2.json();
+}
+
+async function markCompleted(khatmaId,juzNum){
+  var r=await sb('shifa_juz_assignments?khatma_id=eq.'+khatmaId+'&juz_number=eq.'+juzNum,{method:'PATCH',body:JSON.stringify({completed:true})});
+  if(!r.ok){var err=await r.json();throw new Error(err.message||r.status);}
+  return await r.json();
 }
 
 // ===== KHATMA UI =====
@@ -474,7 +480,7 @@ async function selectKhatma(k){
   try{
     var rows=await loadAssignments(k.id);
     assignments={};
-    rows.forEach(function(r){assignments[r.juz_number]=r.reader_name;});
+    rows.forEach(function(r){assignments[r.juz_number]={reader:r.reader_name,completed:r.completed};});
     renderAjzaa();renderJuzSelect();updateProgress();
   }catch(e){toast('خطأ في تحميل الأجزاء: '+e.message);}
 }
@@ -511,7 +517,7 @@ document.getElementById('regBtn').addEventListener('click',async function(){
   if(!currentK){toast('اختر ختمة أولاً');return;}
   try{
     await registerJuz(currentK.id,juz,name);
-    assignments[juz]=name;
+    assignments[juz]={reader:name,completed:false};
     renderAjzaa();renderJuzSelect();updateProgress();
     document.getElementById('readerName').value='';
     document.getElementById('juzSel').value='';
@@ -544,8 +550,7 @@ function renderAjzaa(){
     var card=document.createElement('div');
     card.className='jcard'+(done?' done':'');
     card.innerHTML='<span class="jnum">'+num+'</span>'+
-      '<span class="jlbl">'+(done?'✅ قُرئ':'اضغط')+'</span>'+
-      '<span class="jreader">'+(assignments[num]||'')+'</span>';
+      '<span class="jlbl">'+(done?(assignments[num].completed?'✅ تم':'📖 جاري القراءة'):'اضغط')+'</span>'+'<span class="jreader">'+(done?assignments[num].reader:'')+'</span>';
     if(!done)card.setAttribute('data-juz',num);
     grid.appendChild(card);
   });
@@ -553,8 +558,8 @@ function renderAjzaa(){
 
 document.getElementById('ajzaaGrid').addEventListener('click',function(e){
   var card=e.target.closest('.jcard');
-  if(!card||card.classList.contains('done'))return;
-  var juz=parseInt(card.getAttribute('data-juz'));
+  if(!card)return;
+  var juz=parseInt(card.getAttribute('data-juz') || card.querySelector('.jnum').textContent);
   if(juz)openModal(juz);
 });
 
@@ -582,13 +587,55 @@ document.getElementById('mregBtn').addEventListener('click',async function(){
   if(assignments[currentJuz]){toast('هذا الجزء مسجّل بالفعل ✅');closeModal();return;}
   try{
     await registerJuz(currentK.id,currentJuz,name);
-    assignments[currentJuz]=name;
+    assignments[currentJuz]={reader:name,completed:false};
     renderAjzaa();renderJuzSelect();updateProgress();
     closeModal();
     toast('جزاك الله خيراً يا '+name+' 🤲 الجزء '+currentJuz+' تم تسجيله');
   }catch(e){
     if(e.message==='taken')toast('هذا الجزء أُخذ للتو، اختر جزءاً آخر');
     else toast('خطأ: '+e.message);
+  }
+});
+
+
+document.getElementById('finishBtn').addEventListener('click',async function(){
+  if(!currentJuz||!currentK)return;
+  if(!assignments[currentJuz]){toast('يجب تسجيل الجزء أولاً');return;}
+  try{
+    await markCompleted(currentK.id,currentJuz);
+    assignments[currentJuz].completed=true;
+    renderAjzaa();updateProgress();
+    toast('تم تسجيل إتمام القراءة 🤲');
+    closeModal();
+  }catch(e){
+    toast('خطأ: '+e.message);
+  }
+});
+
+document.getElementById('toggleBtn').addEventListener('click',async function(){
+  if(!currentJuz||!currentK)return;
+  if(!assignments[currentJuz]){toast('يجب تسجيل الجزء أولاً');return;}
+
+  try{
+    var newStatus = !assignments[currentJuz].completed;
+
+    var r = await sb(
+      'shifa_juz_assignments?khatma_id=eq.'+currentK.id+'&juz_number=eq.'+currentJuz,
+      {method:'PATCH',body:JSON.stringify({completed:newStatus})}
+    );
+
+    if(!r.ok) throw new Error('HTTP '+r.status);
+
+    assignments[currentJuz].completed = newStatus;
+
+    renderAjzaa();
+    updateProgress();
+
+    toast(newStatus ? '✅ تم وضع الجزء كمقروء' : '📖 تم وضع الجزء كقيد القراءة');
+
+    closeModal();
+  }catch(e){
+    toast('خطأ: '+e.message);
   }
 });
 
